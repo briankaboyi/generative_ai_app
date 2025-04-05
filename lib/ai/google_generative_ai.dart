@@ -1,5 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
+import 'package:provider/provider.dart';
 
 class GoogleGenerativeAi {
   /**
@@ -16,6 +18,7 @@ class GoogleGenerativeAi {
 
   static final apiKey = dotenv.env["API_KEY"] ?? "";
 
+
   static final model = GenerativeModel(
     model: 'gemini-1.5-flash-latest',
     apiKey: apiKey,
@@ -25,6 +28,8 @@ class GoogleGenerativeAi {
     try {
       GenerateContentResponse response =
           await model.generateContent([Content.text("write me a story")]);
+      debugPrint("response>> $response");
+
       return response.toString();
     } catch (e) {
       rethrow;
