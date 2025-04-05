@@ -38,6 +38,7 @@ dependencies:
   provider: ^6.1.4
   flutter_dotenv: ^5.2.1
   flutter_form_builder: ^9.7.0
+  form_builder_validators: ^11.1.2
 
 dev_dependencies:
   flutter_test:

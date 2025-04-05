@@ -28,7 +28,7 @@ class GoogleGenerativeAi {
     debugPrint(" apiKey >>$apiKey");
     try {
       GenerateContentResponse response =
-          await model.generateContent([Content.text("write me a story")]);
+          await model.generateContent([Content.text(prompt)]);
       debugPrint("response>> ${response.text}");
 
       return response.text.toString();
