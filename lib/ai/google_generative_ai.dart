@@ -24,7 +24,7 @@ class GoogleGenerativeAi {
   static Future<String> generateContent(String prompt) async {
     try {
       GenerateContentResponse response =
-          await model.generateContent([Content.text(prompt)]);
+          await model.generateContent([Content.text("write me a story")]);
       return response.toString();
     } catch (e) {
       rethrow;
