@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 
 void main() async {
   await dotenv.load(fileName: ".env");
+  debugPrint("dotenv from main ${dotenv.env["GENERATIVE_API_KEY"] }");
   runApp(const MyApp());
 }
 
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider<AiResponseProvider>(create: (_)=> AiResponseProvider(),)
+        ChangeNotifierProvider<AiResponseProvider>(create: (_)=> AiResponseProvider(),)
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

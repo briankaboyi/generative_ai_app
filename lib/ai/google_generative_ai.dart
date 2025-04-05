@@ -16,7 +16,7 @@ class GoogleGenerativeAi {
    * print(response.text);
    */
 
-  static final apiKey = dotenv.env["API_KEY"] ?? "";
+  static final apiKey = dotenv.env["GENERATIVE_API_KEY"] ?? "";
 
 
   static final model = GenerativeModel(
@@ -25,12 +25,13 @@ class GoogleGenerativeAi {
   );
 
   static Future<String> generateContent(String prompt) async {
+    debugPrint(" apiKey >>$apiKey");
     try {
       GenerateContentResponse response =
           await model.generateContent([Content.text("write me a story")]);
-      debugPrint("response>> $response");
+      debugPrint("response>> ${response.text}");
 
-      return response.toString();
+      return response.text.toString();
     } catch (e) {
       rethrow;
     }

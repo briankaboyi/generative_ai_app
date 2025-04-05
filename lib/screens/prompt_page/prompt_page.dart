@@ -2,11 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:provider/provider.dart';
+
+import '../../providers/ai_response_provider.dart';
 
 class PromptPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormBuilderState>();
+    final aiResponseProvider = context.read<AiResponseProvider>();
+    final aiResponse = context.watch<AiResponseProvider>().response;
     // TODO: implement build
     return Scaffold(
       body: Padding(
@@ -15,7 +20,7 @@ class PromptPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text("this is data from generative ai"),
+            Text(aiResponse),
             FormBuilder(
                 key: formKey,
                 child: Container(
@@ -38,7 +43,12 @@ class PromptPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      IconButton(onPressed: (){}, icon: Icon(Icons.send))
+                      IconButton(onPressed: (){
+                        if(formKey.currentState!.saveAndValidate()){
+                          debugPrint("${formKey.currentState!.value}");
+                          aiResponseProvider.ask(formKey.currentState!.value['promptField'].toString());
+                        }
+                      }, icon: Icon(Icons.send))
                     ],
                   ),
                 ))

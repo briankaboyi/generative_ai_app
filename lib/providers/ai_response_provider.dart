@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:gemini_app/ai/google_generative_ai.dart';
 
 class AiResponseProvider extends ChangeNotifier{
-  String response= "";
+  String response= "AiResponseProvider response";
 
   void updateResponse(String aiResponse){
     response = aiResponse;
