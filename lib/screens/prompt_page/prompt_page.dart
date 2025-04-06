@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:gemini_app/screens/prompt_page/prompt_page_service.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/ai_response_provider.dart';
@@ -10,12 +11,14 @@ import '../../providers/ai_response_provider.dart';
 class PromptPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
     final formKey = GlobalKey<FormBuilderState>();
     final aiResponseProvider = context.read<AiResponseProvider>();
     final aiResponse = context.watch<AiResponseProvider>().response;
-    // TODO: implement build
+    final promptService = PromptPageService(formKey: formKey, context: context);
+
     return Scaffold(
-        resizeToAvoidBottomInset:true,
+      resizeToAvoidBottomInset: true,
       body: Padding(
         padding:
             const EdgeInsets.only(top: 38.0, bottom: 20, left: 15, right: 15),
@@ -24,7 +27,6 @@ class PromptPage extends StatelessWidget {
             Expanded(child: ListView(children: [Text(aiResponse)])),
             Container(
               color: Colors.transparent,
-
               child: FormBuilder(
                   key: formKey,
                   child: Container(
@@ -51,12 +53,10 @@ class PromptPage extends StatelessWidget {
                         ),
                         IconButton(
                             onPressed: () {
-                              if (formKey.currentState!.saveAndValidate()) {
-                                debugPrint("${formKey.currentState!.value}");
-                                aiResponseProvider.ask(formKey
-                                    .currentState!.value['promptField']
-                                    .toString());
-                              }
+                              promptService.makeAiCall(
+                                  aiResponseProvider,
+                                  formKey.currentState!.value['promptField']
+                                      .toString());
                             },
                             icon: Icon(Icons.send))
                       ],
@@ -66,7 +66,6 @@ class PromptPage extends StatelessWidget {
           ],
         ),
       ),
-
     );
   }
 }
