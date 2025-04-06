@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:gemini_app/providers/ai_response_provider.dart';
+import 'package:gemini_app/providers/chat_provider.dart';
 import 'package:gemini_app/screens/prompt_page/prompt_page.dart';
 import 'package:provider/provider.dart';
 
@@ -17,7 +18,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<AiResponseProvider>(create: (_)=> AiResponseProvider(),)
+        ChangeNotifierProvider<AiResponseProvider>(create: (_)=> AiResponseProvider(),),
+        ChangeNotifierProvider<ChatProvider>(create: (_)=> ChatProvider())
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
